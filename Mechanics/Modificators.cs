@@ -17,7 +17,7 @@ public class Modificators
     private int Buff { get; }
 
     /// <summary>
-    ///     This thing is being used to buff you
+    /// This thing is being used to buff you
     /// </summary>
     public void Use(Player p, Modificators obj)
     {

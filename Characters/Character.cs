@@ -25,7 +25,7 @@ public class Character
 
 
     /// <summary>
-    ///     Check if Character is dead or not
+    /// Check if Character is dead or not
     /// </summary>
     public bool IsDead()
     {
@@ -35,7 +35,7 @@ public class Character
     }
 
     /// <summary>
-    ///     Attacking player.
+    /// Attacking player.
     /// </summary>
     /// <param name="b">Character</param>
     /// <param name="obj">Player</param>
@@ -53,7 +53,7 @@ public class Character
     }
 
     /// <summary>
-    ///     Character's selfhealing
+    /// Character's selfhealing
     /// </summary>
     public void GetSelfHealed()
     {
@@ -63,7 +63,7 @@ public class Character
     }
 
     /// <summary>
-    ///     When being called character must attack this player
+    /// When being called character must attack this player
     /// </summary>
     /// <param name="b">Character</param>
     /// <param name="player">Player</param>
@@ -74,7 +74,7 @@ public class Character
 
 
     /// <summary>
-    ///     Restoring Characters HP
+    /// Restoring Characters HP after fight
     /// </summary>
     public void RestoreCharacter()
     {

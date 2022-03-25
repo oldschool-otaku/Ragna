@@ -26,7 +26,8 @@ public class Bosses
     };
 
     /// <summary>
-    ///     Returns random boss from list above
+    /// Picks random boss with difficulty
+    /// <returns>Random boss</returns>
     /// </summary>
     public static Character BossPick(int choose)
     {

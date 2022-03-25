@@ -32,7 +32,7 @@ public class Player
     protected internal int Defense { get; set; }
 
     /// <summary>
-    ///     Setting up player's properties
+    /// Setting up player's properties
     /// </summary>
     public void SetProperties()
     {
@@ -68,7 +68,7 @@ public class Player
     }
 
     /// <summary>
-    ///     Check if player is dead.
+    /// Check if player is dead.
     /// </summary>
     public bool IsDead()
     {
@@ -92,7 +92,7 @@ public class Player
 
 
     /// <summary>
-    ///     Dealing damage to Character
+    /// Dealing damage to Character
     /// </summary>
     /// <param name="p">Player</param>
     /// <param name="obj">Character</param>
@@ -116,7 +116,7 @@ public class Player
     }
 
     /// <summary>
-    ///     DD's skill to do a 5x damage
+    /// DD's skill to do a 5x damage
     /// </summary>
     /// <param name="p">Player</param>
     /// <param name="obj">Character</param>
@@ -134,7 +134,7 @@ public class Player
     }
 
     /// <summary>
-    ///     Self healing.
+    /// Self healing.
     /// </summary>
     public void GetSelfHealed()
     {
@@ -147,12 +147,18 @@ public class Player
         Console.WriteLine("Healing was successful, restored {0}", amount);
     }
 
+    /// <summary>
+    /// Restoring stats after fight
+    /// </summary>
     public void RestoreStats()
     {
         Health = Class == "Tank" ? 500 : 100;
         Mana = Class == "Heal" ? 250 : 100;
     }
 
+    /// <summary>
+    /// Regenerating mana
+    /// </summary>
     protected internal void RegenMana()
     {
         Mana += 15;

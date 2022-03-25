@@ -11,7 +11,7 @@ public class Fight
     private static int _turnNum;
 
     /// <summary>
-    ///     Start the fight
+    /// Start the fight
     /// </summary>
     /// <param name="p">Player</param>
     public static void Start(Player p)
@@ -36,7 +36,7 @@ public class Fight
     }
 
     /// <summary>
-    ///     Basically a turn mechanic
+    /// Basically a turn mechanic
     /// </summary>
     /// <param name="player">Player</param>
     private static void MainFight(Player player)
@@ -74,7 +74,7 @@ public class Fight
     }
 
     /// <summary>
-    ///     Player's fight menu
+    /// Player's fight menu
     /// </summary>
     /// <param name="player">Player</param>
     private static void FightMenu(Player player)
@@ -170,7 +170,7 @@ public class Fight
     }
 
     /// <summary>
-    ///     Check if boss or player is dead
+    /// Check if boss or player is dead
     /// </summary>
     /// <param name="player">Player</param>
     private static void FinishFight(Player player)
