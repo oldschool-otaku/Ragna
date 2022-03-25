@@ -99,17 +99,12 @@ public class Player
     public void DealDamage(Player p, Character obj)
     {
         DamageDealt = RandomNumberGenerator.GetInt32(p.Damage / 2, p.Damage);
-        if (Gameplay.ThrowTheDice() < p.Chance)
-        {
+        if (Gameplay.ThrowTheDice() < p.Chance) 
+        { 
             Console.WriteLine("Attack failed!");
             return;
         }
-
-        if (obj.Health - DamageDealt <= 0)
-        {
-            obj.Health = 0;
-            return;
-        }
+        if (obj.Health - DamageDealt <= 0) { obj.Health = 0; return; }
 
         obj.Health -= DamageDealt;
         Console.WriteLine("You have dealt {0} damage", DamageDealt);
@@ -123,11 +118,7 @@ public class Player
     public void PowerAttack(Player p, Character obj)
     {
         p.Mana -= 50;
-        if (obj.Health - p.Damage * 5 <= 0)
-        {
-            obj.Health = 0;
-            return;
-        }
+        if (obj.Health - p.Damage * 5 <= 0) { obj.Health = 0; return; }
 
         Console.WriteLine("You have dealt {0} damage", p.Damage * 5);
         obj.Health -= p.Damage * 5;

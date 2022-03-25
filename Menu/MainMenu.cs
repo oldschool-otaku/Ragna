@@ -8,7 +8,7 @@ public class MainMenu
 
     public static void Start()
     {
-        while (_picked is not "1" or "2")
+        while (_picked is not "1" or "2" or "9")
         {
             Console.WriteLine("{0}, what do you want to do?", Program.Player1.Name);
             Console.WriteLine("1 = Go on raid");
@@ -16,7 +16,7 @@ public class MainMenu
             Console.WriteLine("9 = Leave");
             _picked = Console.ReadLine()!;
         }
-
+        
         Pick();
     }
 
@@ -33,7 +33,7 @@ public class MainMenu
                 break;
 
             case "9":
-                break;
+                throw new ArgumentException("ХОХОХО");
 
             default:
                 _picked = Console.ReadLine()!;

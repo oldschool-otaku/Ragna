@@ -43,7 +43,6 @@ public class Modificators
                 p.Defense += Buff;
                 break;
         }
-
         Console.WriteLine("You have used {0}, +{1} to {2}", Name, Buff, type);
     }
 }

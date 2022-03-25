@@ -9,22 +9,14 @@ public class AI
     public static void RandomChoice(Character Boss, Player player)
     {
         if (Boss.IsDead() is not false) return;
-        if (Gameplay.ThrowTheDice() < 3)
-        {
-            Boss.GetSelfHealed();
-            return;
-        }
+        if (Gameplay.ThrowTheDice() < 3) { Boss.GetSelfHealed(); return; }
         Boss.AttackPlayer(Boss, player);
     }
 
     public static void HealChoice(Character Boss, Player player)
     {
         if (Boss.IsDead() is not false) return;
-        if (Gameplay.ThrowTheDice() < 9)
-        {
-            Boss.GetSelfHealed();
-            return;
-        }
+        if (Gameplay.ThrowTheDice() < 9) { Boss.GetSelfHealed(); return; }
         Boss.AttackPlayer(Boss, player);
     }
 
