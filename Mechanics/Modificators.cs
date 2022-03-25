@@ -13,7 +13,7 @@ public class Modificators
     }
 
     private string type { get; }
-    public string Name { get; }
+    private string Name { get; }
     private int Buff { get; }
 
     /// <summary>

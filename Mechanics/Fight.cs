@@ -64,10 +64,11 @@ public class Fight
             else AI.RandomChoice(Boss, player);
 
             Console.WriteLine("+15 Mana");
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             Console.WriteLine("");
-
+            
             player.RegenMana();
+            Console.Clear();
             FinishFight(player);
         }
     }
@@ -105,7 +106,7 @@ public class Fight
                         player.GetSelfHealed();
                         break;
                 }
-
+                
                 break;
             }
 
