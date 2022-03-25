@@ -4,7 +4,6 @@ namespace Ragna.Menu;
 
 public class MainMenu
 {
-    //TODO: доебланить это всё (хотя бы дебаг доделать и выход)
     private static string _picked = "";
 
     public static void Start()

@@ -44,6 +44,6 @@ public class Modificators
                 break;
         }
 
-        Console.WriteLine("You have used {0}", Name);
+        Console.WriteLine("You have used {0}, +{1} to {2}", Name, Buff, type);
     }
 }
