@@ -19,7 +19,6 @@ public class Character
 
     public int Health { get; set; }
     public int Damage { get; }
-
     public string Name { get; }
     //private bool Friendly { get; }
 
@@ -42,11 +41,8 @@ public class Character
     internal void AttackPlayer(Character b, Player obj)
     {
         DamageDealt = RandomNumberGenerator.GetInt32(b.Damage / 2, b.Damage);
-        if (obj.Health - DamageDealt / (obj.Defense / 2) <= 0)
-        {
-            obj.Health = 0;
-            return;
-        }
+        if (obj.Health - DamageDealt / (obj.Defense / 2) <= 0) 
+        { obj.Health = 0; return; }
 
         obj.Health -= DamageDealt / (obj.Defense / 2);
         Console.WriteLine("Enemy has damaged you by {0} HP", DamageDealt);
@@ -67,17 +63,11 @@ public class Character
     /// </summary>
     /// <param name="b">Character</param>
     /// <param name="player">Player</param>
-    public void ForcePick(Character b, Player player)
-    {
-        AttackPlayer(b, player);
-    }
-
-
+    public void ForcePick(Character b, Player player) => AttackPlayer(b, player);
+    
     /// <summary>
     /// Restoring Characters HP after fight
     /// </summary>
-    public void RestoreCharacter()
-    {
-        Health = maxHP;
-    }
+    public void RestoreCharacter() => Health = maxHP;
+    
 }

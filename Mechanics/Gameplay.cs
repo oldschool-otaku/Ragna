@@ -8,8 +8,5 @@ public class Gameplay
     /// Throw 2 dices.
     /// <returns> a number between 1 and 12 </returns>
     /// </summary>
-    internal static int ThrowTheDice()
-    {
-        return RandomNumberGenerator.GetInt32(1, 12);
-    }
+    internal static int ThrowTheDice() => RandomNumberGenerator.GetInt32(1, 12);
 }
