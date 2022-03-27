@@ -24,7 +24,7 @@ public class Character
 
 
     /// <summary>
-    /// Check if Character is dead or not
+    ///     Check if Character is dead or not
     /// </summary>
     public bool IsDead()
     {
@@ -34,14 +34,14 @@ public class Character
     }
 
     /// <summary>
-    /// Attacking player.
+    ///     Attacking player.
     /// </summary>
     /// <param name="b">Character</param>
     /// <param name="obj">Player</param>
     internal void AttackPlayer(Character b, Player obj)
     {
         DamageDealt = RandomNumberGenerator.GetInt32(b.Damage / 2, b.Damage);
-        if (obj.Health - DamageDealt / (obj.Defense / 2) <= 0) 
+        if (obj.Health - DamageDealt / (obj.Defense / 2) <= 0)
         { obj.Health = 0; return; }
 
         obj.Health -= DamageDealt / (obj.Defense / 2);
@@ -49,7 +49,7 @@ public class Character
     }
 
     /// <summary>
-    /// Character's selfhealing
+    ///     Character's selfhealing
     /// </summary>
     public void GetSelfHealed()
     {
@@ -59,14 +59,14 @@ public class Character
     }
 
     /// <summary>
-    /// When being called character must attack this player
+    ///     When being called character must attack this player
     /// </summary>
     /// <param name="b">Character</param>
     /// <param name="player">Player</param>
-    public void ForcePick(Character b, Player player) => AttackPlayer(b, player);
-    
+    public void ForcePick(Character b, Player player) => AttackPlayer(b, player); 
+
     /// <summary>
-    /// Restoring Characters HP after fight
+    ///     Restoring Characters HP after fight
     /// </summary>
     public void RestoreCharacter() => Health = maxHP;
     
