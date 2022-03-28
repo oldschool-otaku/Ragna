@@ -171,21 +171,20 @@ public class Player
             {
                 case "1":
                     player.DealDamage(player, Boss);
-                    break;
+                    return;
 
                 case "2":
                     Boss.ForcePick(Boss, player);
-                    break;
+                    return;
 
                 case "3":
                     player.GetSelfHealed();
-                    break;
+                    return;
             }
     }
     
     public void HealMenu(Player player, Character Boss)
     {
-
         while (true)
         {
             Console.WriteLine("1. Attack        2. Heal someone(25 mana)      3. Heal yourself(50 mana)");
@@ -198,15 +197,15 @@ public class Player
         {
             case "1":
                 player.DealDamage(player, Boss);
-                break;
+                return;
 
             case "2":
                 Player.Heal(player, Boss);
-                break;
+                return;
 
             case "3":
                 player.GetSelfHealed();
-                break;
+                return;
         }
     }
 
@@ -223,15 +222,15 @@ public class Player
         {
             case "1":
                 player.DealDamage(player, Boss);
-                break;
+                return;
 
             case "2":
                 player.PowerAttack(player, Boss);
-                break;
+                return;
 
             case "3":
                 player.GetSelfHealed();
-                break;
+                return;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using Ragna.Mechanics;
 
 namespace Ragna.Menu;
 
@@ -94,9 +95,15 @@ public static class Starting
         }
     }
 
+    private static string RandClass() => 
+        Gameplay.ThrowTheDice() < 3 ? _class = "DD" : 
+        Gameplay.ThrowTheDice() < 5 ? _class = "Tank" : _class = "Heal";
+    
+
     private static void RandomStats()
     {
         _name = _randNames[RandomNumberGenerator.GetInt32(_randNames.Count)];
+        _class = RandClass();
         while (true)
         {
             _strength = Convert.ToString(RandomNumberGenerator.GetInt32(5));
