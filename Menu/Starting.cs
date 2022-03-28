@@ -1,33 +1,40 @@
-﻿namespace Ragna.Menu;
+﻿using System.Security.Cryptography;
+
+namespace Ragna.Menu;
 
 public static class Starting
 {
+    private static int _pick;
     internal static string _name = "";
     internal static string _class = "";
     internal static string _intelligence = "";
     internal static string _strength = "";
     internal static string _defense = "";
+    
+    private static List<string> _randNames = new()
+    {
+        "Sasha", "Egor", "Pivozavr", "God of Bueraque", "Sex12", "Lord Rings", "Why so serious?",
+        "dolboeb", "Master of uwu", "femboy hooters"
+    };
 
     public static void Welcome()
     {
         Console.WriteLine("Welcome to Ragna!");
         Console.WriteLine("This is console game.");
         Console.WriteLine("You can go on raids, which is nice");
-        Console.WriteLine("By the way, what's your name?");
+        
+        Console.WriteLine("Do you want to play with random stats(1) or you want to create your own build?(2)");
+        while(_pick is not 1 or 2)
+            _pick = Convert.ToInt32(Console.ReadLine());
 
-        SetName();
-        Console.Clear();
+        if (_pick == 1)
+            RandomStats();
+        else
+            CreatePlayer();
 
-        Console.WriteLine("So, your name is {0}?", _name);
-        Console.WriteLine("Let's create your character, shall we?");
-        Console.WriteLine("DD, Heal or tank");
-
-        SetClass();
-        Console.Clear();
-
-        Console.WriteLine("Let's make a build");
-        SetAttributes();
-        Console.WriteLine("Now we're talking");
+        Console.WriteLine("So, you're {0} and you have this stats", _name);
+        Console.WriteLine("Intelligence = {0}, Defence = {1}, Strength = {2}", _intelligence, _defense, _strength);
+        
         Console.WriteLine("Let's start playing this game");
         Thread.Sleep(500);
     }
@@ -38,21 +45,29 @@ public static class Starting
         + Convert.ToInt32(_strength) 
         != 15 
         ? 0 : 1;
-    
 
-    private static void SetName()
+    private static void CreatePlayer()
     {
+        Console.WriteLine("What's your name?");
         _name = Console.ReadLine()!;
-        while (_name.Length is 0 or > 16) 
+        while (_name.Length is 0 or >= 32) 
             _name = Console.ReadLine()!;
-    }
+        Console.Clear();
 
-    private static void SetClass()
-    {
+        Console.WriteLine("So, your name is {0}?", _name);
+        Console.WriteLine("Let's create your character, shall we?");
+        Console.WriteLine("DD, Heal or tank");
+
         _class = Console.ReadLine()!;
         while (_class is not ("DD" or "Heal" or "Tank"))
             _class = Console.ReadLine()!;
+        Console.Clear();
+
+        Console.WriteLine("Let's make a build");
+        SetAttributes();
+        Console.WriteLine("Now we're talking");
     }
+
 
     private static void SetAttributes()
     {
@@ -76,6 +91,19 @@ public static class Starting
                 _defense = Console.ReadLine()!;
 
             if (ChechSum() == 1) break;
+        }
+    }
+
+    private static void RandomStats()
+    {
+        _name = _randNames[RandomNumberGenerator.GetInt32(_randNames.Count)];
+        while (true)
+        {
+            _strength = Convert.ToString(RandomNumberGenerator.GetInt32(5));
+            _intelligence = Convert.ToString(RandomNumberGenerator.GetInt32(5));
+            _defense = Convert.ToString(15 - Convert.ToInt32(_strength) - Convert.ToInt32(_intelligence));
+            
+            if(ChechSum() == 1) break;
         }
     }
 }

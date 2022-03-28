@@ -5,7 +5,6 @@ namespace Ragna.Mechanics;
 
 public class Fight
 {
-    private static string _pick = "";
     private static string _bosspick = "";
     private static Character Boss = null!;
     private static int _turnNum;
@@ -58,7 +57,21 @@ public class Fight
 
             Thread.Sleep(500);
 
-            FightMenu(player);
+            switch (player.Class)
+            {
+                // TANK
+                case "Tank":
+                    player.TankMenu(player, Boss);
+                    break;
+                
+                case "Heal":
+                    player.HealMenu(player, Boss);
+                    break;
+                
+                case "DD":
+                    player.DdMenu(player, Boss);
+                    break;
+            }
 
             if (Boss.Health <= Boss.Health * 0.2) AI.HealChoice(Boss, player);
             else AI.RandomChoice(Boss, player);
@@ -72,103 +85,7 @@ public class Fight
             FinishFight(player);
         }
     }
-
-    /// <summary>
-    /// Player's fight menu
-    /// </summary>
-    /// <param name="player">Player</param>
-    private static void FightMenu(Player player)
-    {
-        switch (player.Class)
-        {
-            // TANK
-            case "Tank":
-            {
-                while (true)
-                {
-                    Console.WriteLine("1. Attack        2. Take Damage     3. Heal yourself(50 mana)");
-                    _pick = Console.ReadLine()!;
-                    if (_pick is "1" or "2" or "3") break;
-                }
-
-                Console.WriteLine("");
-                switch (_pick)
-                {
-                    case "1":
-                        player.DealDamage(player, Boss);
-                        break;
-
-                    case "2":
-                        Boss.ForcePick(Boss, player);
-                        break;
-
-                    case "3":
-                        player.GetSelfHealed();
-                        break;
-                }
-                
-                break;
-            }
-
-            // HEAL
-            case "Heal":
-            {
-                while (true)
-                {
-                    Console.WriteLine("1. Attack        2. Heal someone(25 mana)      3. Heal yourself(50 mana)");
-                    _pick = Console.ReadLine()!;
-                    if (_pick is "1" or "2" or "3") break;
-                }
-
-                Console.WriteLine("");
-                switch (_pick)
-                {
-                    case "1":
-                        player.DealDamage(player, Boss);
-                        break;
-
-                    case "2":
-                        Player.Heal(player, Boss);
-                        break;
-
-                    case "3":
-                        player.GetSelfHealed();
-                        break;
-                }
-
-                break;
-            }
-
-            // DD
-            case "DD":
-            {
-                while (true)
-                {
-                    Console.WriteLine("1. Attack        2. Power Attack(50 mana)    3. Heal yourself(50 mana)");
-                    _pick = Console.ReadLine()!;
-                    if (_pick is "1" or "2" or "3") break;
-                }
-
-                switch (_pick)
-                {
-                    case "1":
-                        player.DealDamage(player, Boss);
-                        break;
-
-                    case "2":
-                        player.PowerAttack(player, Boss);
-                        break;
-
-                    case "3":
-                        player.GetSelfHealed();
-                        break;
-                }
-
-                break;
-            }
-        }
-    }
-
+    
     /// <summary>
     /// Check if boss or player is dead
     /// </summary>
