@@ -73,6 +73,8 @@ public class Fight
                     break;
             }
 
+            /*Boss.Health <= Boss.Health * 0.2 ? AI.HealChoice(Boss, player) : AI.RandomChoice(Boss, player);*/
+            
             if (Boss.Health <= Boss.Health * 0.2) AI.HealChoice(Boss, player);
             else AI.RandomChoice(Boss, player);
 
@@ -92,14 +94,7 @@ public class Fight
     /// <param name="player">Player</param>
     private static void FinishFight(Player player)
     {
-        if (Boss.IsDead())
-        {
-            player.RestoreStats();
-            Boss.RestoreCharacter();
-            _turnNum = 0;
-            MainMenu.Start();
-        }
-
+        if (!Boss.IsDead()) return;
         if (!player.IsDead()) return;
         player.RestoreStats();
         Boss.RestoreCharacter();

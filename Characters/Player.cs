@@ -46,7 +46,7 @@ public class Player
                 Strength += 2;
                 Mana = 100;
                 maxMana = 100;
-                break;
+                return;
 
             case "Tank":
                 Health = 500;
@@ -55,7 +55,7 @@ public class Player
                 Defense += 2;
                 Mana = 100;
                 maxMana = 100;
-                break;
+                return;
 
             case "Heal":
                 Health = 100;
@@ -64,7 +64,7 @@ public class Player
                 Intelligence += 2;
                 Mana = 250;
                 maxMana = 250;
-                break;
+                return;
         }
     }
 

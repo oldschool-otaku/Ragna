@@ -7,9 +7,9 @@ internal static class Program
 {
     public static readonly Player Player1 = new(
         Starting._class,
-        Convert.ToInt32(Starting._strength),
-        Convert.ToInt32(Starting._intelligence),
-        Convert.ToInt32(Starting._defense));
+        Starting._strength,
+        Starting._intelligence,
+        Starting._defense);
 
     private static void Main()
     {
