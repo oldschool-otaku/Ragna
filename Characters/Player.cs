@@ -101,11 +101,8 @@ public class Player
     private void DealDamage(Player p, Character obj)
     {
         DamageDealt = RandomNumberGenerator.GetInt32(p.Damage / 2, p.Damage);
-        if (Gameplay.ThrowTheDice() < p.Chance) 
-        { 
-            Console.WriteLine("Attack failed!");
-            return;
-        }
+        if (Gameplay.ThrowTheDice() < p.Chance) { Console.WriteLine("Attack failed!"); return; }
+        
         if (obj.Health - DamageDealt <= 0) { obj.Health = 0; return; }
 
         obj.Health -= DamageDealt;
@@ -137,7 +134,11 @@ public class Player
             : RandomNumberGenerator.GetInt32(10, 25) * (Intelligence / 4);
         Health += amount;
 
-        Console.WriteLine("Healing was successful, restored {0}", amount);
+        if (Bleeding == false)
+            Console.WriteLine("Healing was successful, restored {0} HP", amount);
+        else 
+        { Console.WriteLine("Healing was successful, stopped bleeding, restored {0} HP", amount); Bleeding = false; }
+
     }
 
     /// <summary>
@@ -166,6 +167,7 @@ public class Player
     {
         Bleeding = true;
         int damage = Convert.ToInt32(Health * 0.1);
+        Health -= damage;
         Console.WriteLine("You're bleeding! Next {0} turns your health will be drained!", bleedTurns);
         Thread.Sleep(1500);
     }
