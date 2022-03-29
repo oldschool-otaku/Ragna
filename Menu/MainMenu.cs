@@ -26,18 +26,18 @@ public class MainMenu
         {
             case "1":
                 Fight.Start(Program.Player1);
-                break;
+                return;
 
             case "2":
                 Tutorial.Start(Program.Player1);
-                break;
+                return;
 
             case "9":
                 throw new ArgumentException("ХОХОХО");
 
             default:
                 _picked = Console.ReadLine()!;
-                break;
+                return;
         }
     }
 }

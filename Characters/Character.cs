@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using Ragna.Mechanics;
 
 namespace Ragna.Characters;
 
@@ -7,22 +8,36 @@ public class Character
     //TODO: сделать френдли мобов
     private int DamageDealt;
     private int maxHP;
+    private readonly List<Skill?> Skills;
+    public List<Status> StatusList = new();
+    public bool Stunned = false;
 
-    public Character(string name, int hp, int dmg, bool friend)
+    /*
+     public Character(string name, int hp, int dmg, int initiative, List<Skill> skills)
+    {
+        Hp = hp;
+        Skills = skills;
+        Dmg = dmg;
+        Name = name;
+        Initiative = initiative;
+        OrigHp = hp;
+    }
+     */
+    
+    public Character(string name, int hp, int dmg, List<Skill?> skills)
     {
         Health = hp;
         maxHP = hp;
         Damage = dmg;
+        Skills = skills;
         Name = name;
-        //Friendly = friend;
     }
 
     public int Health { get; set; }
     public int Damage { get; }
     public string Name { get; }
-    //private bool Friendly { get; }
-
-
+    private bool Dead { get; set; }
+    
     /// <summary>
     ///     Check if Character is dead or not
     /// </summary>
@@ -69,5 +84,29 @@ public class Character
     ///     Restoring Characters HP after fight
     /// </summary>
     public void RestoreCharacter() => Health = maxHP;
+    
+    public void Tick()
+    {
+        List<Status> temp = new List<Status>(StatusList);
+        foreach (Status i in StatusList)
+        {
+            i.Fn(this);
+            i.Duration -= 1;
+            Console.WriteLine($"Turns remaining: {i.Duration}");
+            Thread.Sleep(3000);
+            if (i.Duration <= 0) { temp.Remove(i); }
+        }
+        StatusList = temp;
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        Health = Health - dmg <= 0 ? 0 : Health - dmg;
+        Dead = Health == 0;
+        if (!Dead) return;
+        Console.WriteLine($"{Name} is dead");
+        Thread.Sleep(3000);
+    }
+
     
 }
