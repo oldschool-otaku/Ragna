@@ -12,6 +12,7 @@ public class Player
     private int DamageDealt;
     private int maxMana;
     private string? _pick;
+    private bool Bleeding;
 
     public Player(string @class, int strength, int intelligence, int defense)
     {
@@ -155,6 +156,18 @@ public class Player
     {
         Mana += 15;
         if (Mana > maxMana) Mana = maxMana;
+    }
+
+    /// <summary>
+    ///     Bleeding
+    /// </summary>
+    /// <param name="bleedTurns">Amount of turns with bleeding effect</param>
+    protected internal void Bleed(int bleedTurns)
+    {
+        Bleeding = true;
+        int damage = Convert.ToInt32(Health * 0.1);
+        Console.WriteLine("You're bleeding! Next {0} turns your health will be drained!", bleedTurns);
+        Thread.Sleep(1500);
     }
 
     public void TankMenu(Player player, Character Boss)
