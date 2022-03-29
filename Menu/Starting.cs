@@ -18,28 +18,6 @@ public static class Starting
         "dolboeb", "Master of uwu", "femboy hooters"
     };
 
-    public static void Welcome()
-    {
-        Console.WriteLine("Welcome to Ragna!");
-        Console.WriteLine("This is console game.");
-        Console.WriteLine("You can go on raids, which is nice");
-        
-        Console.WriteLine("Do you want to play with random stats(1) or you want to create your own build?(2)");
-        while(_pick is not (1 or 2))
-            _pick = Convert.ToInt32(Console.ReadLine());
-
-        if (_pick == 2)
-            CreatePlayer();
-        else
-            RandomStats();
-
-        Console.WriteLine("So, you're {0} and you have this stats", _name);
-        Console.WriteLine("Intelligence = {0}, Defence = {1}, Strength = {2}", _intelligence, _defense, _strength);
-        
-        Console.WriteLine("Let's start playing this game");
-        Thread.Sleep(1500);
-    }
-
     private static bool ChechSum() => _defense + _intelligence + _strength == 15;
 
     private static void CreatePlayer()
@@ -92,5 +70,27 @@ public static class Starting
             _intelligence = RandomNumberGenerator.GetInt32(5);
             _defense = 15 - _strength - _intelligence;
         }
+    }
+    
+    public static void Welcome()
+    {
+        Console.WriteLine("Welcome to Ragna!");
+        Console.WriteLine("This is console game.");
+        Console.WriteLine("You can go on raids, which is nice");
+        
+        Console.WriteLine("Do you want to play with random stats(1) or you want to create your own build?(2)");
+        while(_pick is not (1 or 2))
+            _pick = Convert.ToInt32(Console.ReadLine());
+
+        if (_pick == 2)
+            CreatePlayer();
+        else
+            RandomStats();
+
+        Console.WriteLine("So, you're {0} and you have this stats", _name);
+        Console.WriteLine("Intelligence = {0}, Defence = {1}, Strength = {2}", _intelligence, _defense, _strength);
+        
+        Console.WriteLine("Let's start playing this game");
+        Thread.Sleep(1500);
     }
 }
