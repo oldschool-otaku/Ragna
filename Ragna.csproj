@@ -7,4 +7,16 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="timur version\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="timur version\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="timur version\**" />
+    </ItemGroup>
+
 </Project>
