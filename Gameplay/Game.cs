@@ -5,7 +5,7 @@ namespace Ragna.Gameplay;
 
 public class Game
 {
-    public static Character Subject;
+    public static Character? Subject;
     private static List<Character> TurnOrder = new();
     public List<Character> Allies;
     public List<Character> Enemies;
@@ -27,7 +27,7 @@ public class Game
         return TurnOrder;
     }
 
-    public void ClearDead()
+    private void ClearDead()
     {
         TurnOrder = TurnOrder.Where(x => !x.Dead).ToList();
         Allies = Allies.Where(x => !x.Dead).ToList();
@@ -58,12 +58,11 @@ public class Game
                 }
 
                 if (subject.IsAi)
-                {
                     new Ai(Allies, Enemies, subject).Act();
-                }
+                
                 else
                 {
-                    Skill? skill = subject.GetSkill();
+                    Skill skill = subject.GetSkill();
                     skill.Use(subject, skill.GetTargets());
                 }
 
@@ -72,9 +71,7 @@ public class Game
                 Console.Clear();
             }
         }
-
-        ;
-
+        
         bool battleWon = Allies.Any();
         Console.WriteLine($"{(battleWon ? "You Won" : "You Lost")}");
         return battleWon;
