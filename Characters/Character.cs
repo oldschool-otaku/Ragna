@@ -1,33 +1,34 @@
-﻿using Ragna;
+﻿using System.Diagnostics;
+using Ragna.Mechanics;
 
-namespace Cosoleapp3;
+namespace Ragna.Characters;
 
 public class Character
 {
-    public string Name;
-    public int Hp;
-    public int MaxHp;
-    public int Dmg;
-    public int MaxDmg;
+    public readonly List<int> BestPositon;
+    public readonly int MaxAcc;
+    public readonly double MaxArmor;
+    public readonly int MaxCrit;
+    public readonly int MaxDmg;
+    public readonly int MaxDodge;
+    public readonly int MaxHp;
+    public readonly int MaxInitiative;
+    public readonly string Name;
+    public readonly List<Skill> Skills;
     public int Acc;
-    public int MaxAcc;
-    public int Dodge;
-    public int MaxDodge;
-    public int Crit;
-    public int MaxCrit;
     public double Armor;
-    public double MaxArmor;
-    public int Initiative;
-    public int MaxInitiative;
-    public bool Stunned = false;
+    public int Crit;
     public bool Dead;
+    public int Dmg;
+    public int Dodge;
+    public int Hp;
+    public int Initiative;
     public bool IsAi;
-    public string Role;
-    public List<int> BestPositon;
-    public List<Skill> Skills;
     public List<Status> StatusList = new();
+    public bool Stunned = false;
 
-    public Character(string name, int hp, int dmg, int acc, int dodge, double armor, int crit, int initiative, List<Skill> skills, string role = "", List<Func<bool>> pattern = null)
+    public Character(string name, int hp, int dmg, int acc, int dodge, double armor, int crit, int initiative,
+        List<Skill> skills, List<Func<bool>>? pattern = null)
     {
         Hp = hp;
         MaxHp = hp;
@@ -45,31 +46,39 @@ public class Character
         MaxArmor = armor;
         Skills = skills;
         Name = name;
-        Role = role;
         BestPositon = Enumerable.Range(0, 3).Where(x => Skills.All(a => a.UsableFrom.Contains(x))).ToList();
     }
+
     public Skill GetSkill()
     {
-        var usableSkills = Skills.Where(x => x.UsableFrom.Contains(Program.Game.Allies.IndexOf(this))).ToList();
+        List<Skill> usableSkills = Skills.Where(x =>
+        {
+            Debug.Assert(Program.Game != null, "Program.Game != null");
+            return x.UsableFrom.Contains(Program.Game.Allies.IndexOf(this));
+        }).ToList();
+
         if (IsAi) return usableSkills[new Random().Next(Skills.Count)];
+
         Console.WriteLine($"Select a skill:\n{Skill.GetNames(usableSkills)}");
         return usableSkills[Misc.VerfiedInput(usableSkills.Count)];
     }
-    
+
     public void ProcessStatuses()
     {
-        List<Status> temp = new List<Status>(StatusList);
-        foreach (var i in StatusList)
+        List<Status> temp = new(StatusList);
+        foreach (Status i in StatusList)
         {
             if (!i.IsInstant)
             {
                 i.Fn(this);
                 Console.WriteLine($"Turns remaining: {i.Duration - 1}");
             }
+
             i.Duration -= 1;
             Thread.Sleep(3000);
-            if (i.Duration <= 0) { temp.Remove(i); }
+            if (i.Duration <= 0) temp.Remove(i);
         }
+
         StatusList = temp;
         Dmg = MaxDmg;
         Acc = MaxAcc;
@@ -77,10 +86,7 @@ public class Character
         Initiative = MaxInitiative;
         Crit = MaxCrit;
         Armor = MaxArmor;
-        foreach (var i in StatusList.Where(i => i.IsInstant))
-        {
-            i.Fn(this);
-        } 
+        foreach (Status i in StatusList.Where(i => i.IsInstant)) i.Fn(this);
     }
 
     public void TakeDamage(int dmg)
@@ -91,7 +97,7 @@ public class Character
         Console.WriteLine($"{Name} is dead");
         Thread.Sleep(3000);
     }
-    
+
     public void Heal(int dmg)
     {
         Hp = Hp + dmg > MaxHp ? MaxHp : Hp + dmg;
@@ -100,9 +106,8 @@ public class Character
         Console.WriteLine($"{Name} is dead");
         Thread.Sleep(3000);
     }
+
+    public string GetStatuses() => StatusList.Aggregate("", (current, i) => 
+        current + i.Name + " ").Trim();
     
-    public string GetStatuses()
-    {
-        return StatusList.Aggregate("", (current, i) => current + (i.Name + " ")).Trim();
-    }
 }

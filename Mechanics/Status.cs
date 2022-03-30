@@ -1,14 +1,16 @@
-﻿namespace Cosoleapp3;
+﻿using Ragna.Characters;
+
+namespace Ragna.Mechanics;
 
 public class Status
 {
-    public string Name;
-    public Action<Character> Fn;
-    public int Duration;
-    public bool IsInstant;
-    public string Type;
-    public string OnApply;
     private static Dictionary<string, Status> StatusList = new();
+    public int Duration;
+    public readonly Action<Character> Fn;
+    public readonly bool IsInstant;
+    public readonly string Name;
+    public readonly string OnApply;
+    public readonly string Type;
 
     private Status(string name, int duration, Action<Character> fn, string type, string onapply, bool isInstant = false)
     {
@@ -28,7 +30,7 @@ public class Status
             Console.WriteLine($"{obj.Name} is stunned, skipping turn");
             Thread.Sleep(3000);
         }
-        
+
         void Bleed(Character obj)
         {
             int damage = Convert.ToInt32(obj.MaxHp * 0.15);
@@ -36,21 +38,33 @@ public class Status
             Console.WriteLine($"{obj.Name} bleeding for {damage}");
             Thread.Sleep(3000);
         }
-        
+
         void Rallybuff(Character obj)
         {
             obj.Initiative += 10;
             obj.Crit += 25;
         }
-        
-        void Mark(Character obj) => Console.WriteLine($"{obj.Name} is marked");
 
-        void Riposte(Character obj) => Console.WriteLine($"{obj.Name} is riposting");
-        
-        void Guard(Character obj) => Console.WriteLine($"{obj.Name} is riposting");
-        
-        void ArmorBuff(Character obj) => obj.Armor += 0.2;
-        
+        void Mark(Character obj)
+        {
+            Console.WriteLine($"{obj.Name} is marked");
+        }
+
+        void Riposte(Character obj)
+        {
+            Console.WriteLine($"{obj.Name} is riposting");
+        }
+
+        void Guard(Character obj)
+        {
+            Console.WriteLine($"{obj.Name} is riposting");
+        }
+
+        void ArmorBuff(Character obj)
+        {
+            obj.Armor += 0.2;
+        }
+
         AddStatus("stun", 1, Stun, "stun", "is stunned");
         AddStatus("bleed", 2, Bleed, "damage", "is bleeding");
         AddStatus("Mark", 2, Mark, "mark", "is marked");
@@ -60,9 +74,10 @@ public class Status
         AddStatus("ArmorBuff", 3, ArmorBuff, "defensivebuff", "is fortyfied", true);
     }
 
-    private static void AddStatus(string name, int duration, Action<Character> fn, string type, string onapply, bool isinstant = false)
+    private static void AddStatus(string name, int duration, Action<Character> fn, string type, string onapply,
+        bool isinstant = false)
     {
-        var statusToAdd = new Status(name, duration, fn, type, onapply, isinstant);
+        Status statusToAdd = new(name, duration, fn, type, onapply, isinstant);
         StatusList.Add(statusToAdd.Name, statusToAdd);
     }
 
@@ -70,7 +85,7 @@ public class Status
     {
         return StatusList[name];
     }
-    
+
     public static void ApplyStatus(Character obj, Status status)
     {
         obj.Dmg = obj.MaxDmg;
@@ -81,9 +96,9 @@ public class Status
         obj.Armor = obj.MaxArmor;
         if (status.IsInstant)
             status.Fn(obj);
-        if (obj.StatusList.Contains(status)) 
+        if (obj.StatusList.Contains(status))
             obj.StatusList.Remove(status);
-        
+
         obj.StatusList.Add(status);
     }
 }

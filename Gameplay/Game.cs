@@ -1,17 +1,20 @@
-﻿namespace Cosoleapp3;
+﻿using Ragna.Characters;
+using Ragna.Mechanics;
+
+namespace Ragna.Gameplay;
 
 public class Game
 {
+    public static Character Subject;
+    private static List<Character> TurnOrder = new();
     public List<Character> Allies;
     public List<Character> Enemies;
-    public static Character Subject;
-    private static List<Character> TurnOrder = new List<Character>();
 
     public Game(List<Character> allies, List<Character> enemies)
     {
         Allies = allies;
         Enemies = enemies;
-        foreach (var i in enemies) { i.IsAi = true; }
+        foreach (Character i in enemies) i.IsAi = true;
     }
 
     private List<Character> GetTurnOrder()
@@ -33,22 +36,20 @@ public class Game
 
     public bool Start()
     {
-        while (Allies.Any() & Enemies.Any()) {
+        while (Allies.Any() & Enemies.Any())
+        {
             TurnOrder = GetTurnOrder();
-            foreach (var subject in TurnOrder)
+            foreach (Character subject in TurnOrder)
             {
                 Subject = subject;
-                foreach (var i in Subject.BestPositon)
-                {
-                    Console.WriteLine(i);
-                }
-                
-                if (!Allies.Any() | !Enemies.Any()) { break; }
-                if (subject.Dead) {continue;}
+                foreach (int i in Subject.BestPositon) Console.WriteLine(i);
+
+                if (!Allies.Any() | !Enemies.Any()) break;
+                if (subject.Dead) continue;
                 Console.WriteLine($"Turn Order: \n{Misc.GetCharsNames(TurnOrder)}\n");
                 Console.WriteLine($"Acting: {subject.Name}");
                 subject.ProcessStatuses();
-                
+
                 ClearDead();
                 if (subject.Stunned)
                 {
@@ -62,14 +63,17 @@ public class Game
                 }
                 else
                 {
-                    var skill = subject.GetSkill();
+                    Skill? skill = subject.GetSkill();
                     skill.Use(subject, skill.GetTargets());
                 }
+
                 ClearDead();
                 Thread.Sleep(5000);
                 Console.Clear();
             }
-        };
+        }
+
+        ;
 
         bool battleWon = Allies.Any();
         Console.WriteLine($"{(battleWon ? "You Won" : "You Lost")}");
