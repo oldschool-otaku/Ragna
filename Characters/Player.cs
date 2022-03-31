@@ -12,6 +12,7 @@ public class Player
     private int DamageDealt;
     private int maxMana;
     private string? _pick;
+    private bool Bleeding;
 
     public Player(string @class, int strength, int intelligence, int defense)
     {
@@ -133,7 +134,11 @@ public class Player
             : RandomNumberGenerator.GetInt32(10, 25) * (Intelligence / 4);
         Health += amount;
 
-        Console.WriteLine("Healing was successful, restored {0}", amount);
+        if (Bleeding == false)
+            Console.WriteLine("Healing was successful, restored {0} HP", amount);
+        else 
+        { Console.WriteLine("Healing was successful, stopped bleeding, restored {0} HP", amount); Bleeding = false; }
+
     }
 
     /// <summary>
