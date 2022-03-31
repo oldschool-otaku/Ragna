@@ -197,4 +197,50 @@ public class Skill
                                                                            $"\nTargets{(ls[i].UseOnAllies ? " Allies" : "")}: {(ls[i].Aoe ? "~" : "")}{ls[i].Targets.Aggregate("", (x, j) => x + $"{j + 1} ").Trim()}" +
                                                                            $"{(ls[i].StatusList.Any() ? $"\nStatus: {ls[i].GetStatuses()}" : "")}\n");
     }
+
+    public static Skill LoadSkills(int skillNumber)
+    {
+        Skill attack = new("Attack", 1, new List<int> {0}, new List<Status>(), 
+            move: 1);
+        Skill lasthit = new("Lasthit", 2, new List<int> {0, 1}, new List<Status>());
+        Skill rangedAttack = new("Ranged Attack", 0.75, new List<int> {0, 1, 2}, 
+            new List<Status>(), markdamage: true);
+        Skill sniperMark = new("Sniper Mark", 0, new List<int> {0, 1, 2, 3},
+            new List<Status> {Status.GetStatus("Mark")});
+        Skill cleave = new("Cleave", 0.33, new List<int> {0, 1, 2}, 
+            new List<Status>(), aoe: true);
+        Skill bleed = new("Bleed", 0.5, new List<int> {0, 1, 2, 3},
+            new List<Status> {Status.GetStatus("bleed")});
+        Skill move = new("Move", useonself: true, isMoveSkill: true);
+        Skill fortify = new("fortify", 0, new List<int> {0, 1, 2, 3},
+            new List<Status> {Status.GetStatus("ArmorBuff")}, useonaliies: true, aoe: true);
+        Skill heal = new("Heal", 1, new List<int> {0, 1, 2, 3}, 
+            new List<Status>(), useonaliies: true);
+        Skill unholyGuard = new("Unholy Guard", statusList: new List<Status> {Status.GetStatus("Guard")},
+            useonaliies: true);
+        Skill spikedMace = new("Spiked Mace", targets: new List<int> {0, 1},
+            statusList: new List<Status> {Status.GetStatus("bleed")});
+        Skill shieldBash = new("Shield Bash", 0.5, new List<int> {0, 1}, 
+            new List<Status> {Status.GetStatus("stun")});
+        Skill spearCharge = new("Spear Charge", 0.67, new List<int> {0, 1, 2}, 
+            new List<Status>(), aoe: true);
+        Skill spearStrike = new("Spear Strike", 1, new List<int> {0, 1, 2}, 
+            new List<Status>());
+        Skill spearRiposte = new("Riposte", 0.5, new List<int> {0, 1, 2, 4},
+            new List<Status> {Status.GetStatus("Riposte")}, buffself: true);
+        Skill bannerstrike = new("Unexpected attack", 1, new List<int> {0, 1, 2, 3},
+            new List<Status> {Status.GetStatus("stun")}, new List<int> {3});
+        Skill bannerlordrally = new("Rally To The Flame", 0, new List<int> {0, 1, 2, 3},
+            new List<Status> {Status.GetStatus("Rallybuff")}, useonaliies: true, aoe: true,
+            usablefrom: new List<int> {3});
+        Skill unholyheal = new("Unholy Restoration", 1, new List<int> {0, 1, 2, 3}, 
+            new List<Status>(),
+            useonaliies: true, aoe: true, usablefrom: new List<int> {3});
+        Skill bannermark = new("Mark for death", 0, new List<int> {0, 1, 2, 3},
+            new List<Status> {Status.GetStatus("Mark")}, new List<int> {3});
+        Skill crosbowbolt = new("Crosbow Bolt", 1, new List<int> {0, 1, 2, 3}, 
+            new List<Status>(), markdamage: true);
+        Skill suppressingfire = new("Suppressing Fire", 0.67, new List<int> {1, 2, 3}, 
+            new List<Status>(), aoe: true);
+    }
 }

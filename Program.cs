@@ -10,7 +10,7 @@ public class Program
     private static void Main()
     {
         Status.GenerateStatuses();
-        
+
         Skill attack = new("Attack", 1, new List<int> {0}, new List<Status>(), 
             move: 1);
         Skill lasthit = new("Lasthit", 2, new List<int> {0, 1}, new List<Status>());
@@ -53,7 +53,7 @@ public class Program
             new List<Status>(), markdamage: true);
         Skill suppressingfire = new("Suppressing Fire", 0.67, new List<int> {1, 2, 3}, 
             new List<Status>(), aoe: true);
-        
+
         Character hero = new("Hero", 100, 100, 0, 5, 0.40, 0, 30,
             new List<Skill> {attack, cleave, fortify, sniperMark, rangedAttack, unholyGuard, move});
         Character obama = new("Obama", 100, 50, 0, 5, 0.10, 10, 6,
