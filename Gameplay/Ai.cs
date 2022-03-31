@@ -53,7 +53,6 @@ public class Ai
                     return true;
                 }
             }
-
             return false;
         }
     }
