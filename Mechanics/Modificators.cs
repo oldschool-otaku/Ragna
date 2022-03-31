@@ -25,10 +25,6 @@ public class Modificators
         {
             case "Damage":
                 p.Damage += Buff;
-                return; 
-
-            case "Health":
-                p.Health += Buff;
                 return;
 
             case "Strength":
