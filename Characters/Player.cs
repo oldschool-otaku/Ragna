@@ -160,7 +160,6 @@ public class Player
     /// <param name="bleedTurns">Amount of turns with bleeding effect</param>
     protected internal void Bleed(int bleedTurns)
     {
-        Bleeding = true;
         int damage = Convert.ToInt32(Health * 0.1);
         Health -= damage;
         Console.WriteLine("You're bleeding! Next {0} turns your health will be drained!", bleedTurns);
