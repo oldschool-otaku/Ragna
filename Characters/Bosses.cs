@@ -6,23 +6,23 @@ public class Bosses
 {
     private static readonly List<Character> _easy = new()
     {
-        new Character("DOM MOLCHIT", 100, 25, false),
-        new Character("Emy Ploho", 100, 15, false),
-        new Character("dolboeb", 1, 1, false)
+        new Character("DOM MOLCHIT", 100, 25),
+        new Character("Emy Ploho", 100, 15),
+        new Character("dolboeb", 1, 1)
     };
 
     private static readonly List<Character> _mid = new()
     {
-        new Character("Lord Bueraque", 9999, 10, false),
-        new Character("Ragna", 1500, 25, false),
-        new Character("Real Programmer uwu", 250, 25, false)
+        new Character("Lord Bueraque", 9999, 10),
+        new Character("Ragna", 1500, 25),
+        new Character("Real Programmer uwu", 250, 25)
     };
 
     private static readonly List<Character> _hard = new()
     {
-        new Character("Yorushika", 2500, 45, false),
-        new Character("Sewer slut", 4500, 25, false),
-        new Character("my dead girlfriend", 1500, 75, false)
+        new Character("Yorushika", 2500, 45),
+        new Character("Sewer slut", 4500, 25),
+        new Character("my dead girlfriend", 1500, 75)
     };
 
     /// <summary>

@@ -13,6 +13,7 @@ public class Player
     private int maxMana;
     private string? _pick;
     private bool Bleeding;
+    private int BleedTurns;
 
     public Player(string @class, int strength, int intelligence, int defense)
     {
@@ -80,20 +81,6 @@ public class Player
     }
 
     /// <summary>
-    ///     Function to heal someone.
-    /// </summary>
-    /// <param name="p">Player</param>
-    /// <param name="obj">Character</param>
-    private static void Heal(Player p, Character obj)
-    {
-        p.Mana -= 25;
-        int amount = RandomNumberGenerator.GetInt32(10, 25) * (p.Intelligence / 4);
-        obj.Health += amount;
-        Console.WriteLine("Healing was successful, restored {0}", amount);
-    }
-
-
-    /// <summary>
     /// Dealing damage to Character
     /// </summary>
     /// <param name="p">Player</param>
@@ -136,9 +123,10 @@ public class Player
 
         if (Bleeding == false)
             Console.WriteLine("Healing was successful, restored {0} HP", amount);
-        else 
-        { Console.WriteLine("Healing was successful, stopped bleeding, restored {0} HP", amount); Bleeding = false; }
-
+        else
+        { Console.WriteLine("Healing was successful, stopped bleeding, restored {0} HP", amount);
+            BleedTurns = 0;
+        }
     }
 
     /// <summary>
@@ -215,13 +203,20 @@ public class Player
                 return;
 
             case "2":
-                Player.Heal(player, Boss);
+                player.BleedAttack(player, Boss, 3);
                 return;
 
             case "3":
                 player.GetSelfHealed();
                 return;
         }
+    }
+
+    private void BleedAttack(Player player, Character boss, int turns)
+    {
+        player.Mana -= 25;
+        player.DealDamage(player, boss);
+        boss.Bleed(turns);
     }
 
     public void DdMenu(Player player, Character Boss)
