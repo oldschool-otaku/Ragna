@@ -5,7 +5,7 @@ namespace Ragna.Mechanics;
 
 public class Fight
 {
-    private static string _bosspick = "";
+    private static int _bosspick;
     private static Character Boss = null!;
     private static int _turnNum;
 
@@ -21,12 +21,11 @@ public class Fight
             Console.WriteLine("Please select difficulty");
             Console.WriteLine("1. Easy      2. Normal       3. Hard     4. Random   0. Leave");
 
-            _bosspick = Console.ReadLine()!;
-
-            if (_bosspick is "1" or "2" or "3" or "4" or "0") break;
+            _bosspick = Gameplay.VerfiedInput(10);
+            if (_bosspick is 1 or 2 or 3 or 4 or 0) break;
         }
 
-        if (_bosspick is "0") MainMenu.Start();
+        if (_bosspick is 0) MainMenu.Start();
 
         Boss = Bosses.BossPick(Convert.ToInt32(_bosspick));
         Thread.Sleep(1000);
@@ -47,7 +46,7 @@ public class Fight
 
         Thread.Sleep(1000);
 
-        while (true)
+        while (!(Boss.IsDead() && player.IsDead()))
         {
             _turnNum++;
 
@@ -59,24 +58,25 @@ public class Fight
 
             switch (player.Class)
             {
-                // TANK
                 case "Tank":
                     player.TankMenu(player, Boss);
-                    break;
+                    return;
                 
                 case "Heal":
                     player.HealMenu(player, Boss);
-                    break;
+                    return;
                 
                 case "DD":
                     player.DdMenu(player, Boss);
-                    break;
+                    return;
             }
 
             /*Boss.Health <= Boss.Health * 0.2 ? AI.HealChoice(Boss, player) : AI.RandomChoice(Boss, player);*/
             
-            if (Boss.Health <= Boss.Health * 0.2) AI.HealChoice(Boss, player);
-            else AI.RandomChoice(Boss, player);
+            if (Boss.Health <= Boss.Health * 0.2) 
+                AI.HealChoice(Boss, player);
+            else 
+                AI.RandomChoice(Boss, player);
 
             Console.WriteLine("+15 Mana");
             Thread.Sleep(2000);

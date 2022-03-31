@@ -7,8 +7,9 @@ public class Character
     //TODO: сделать френдли мобов
     private int DamageDealt;
     private int maxHP;
+    private int BleedTurns;
 
-    public Character(string name, int hp, int dmg, bool friend)
+    public Character(string name, int hp, int dmg)
     {
         Health = hp;
         maxHP = hp;
@@ -20,7 +21,6 @@ public class Character
     public int Health { get; set; }
     public int Damage { get; }
     public string Name { get; }
-    //private bool Friendly { get; }
 
 
     /// <summary>
@@ -69,5 +69,28 @@ public class Character
     ///     Restoring Characters HP after fight
     /// </summary>
     public void RestoreCharacter() => Health = maxHP;
+
+    /// <summary>
+    /// Attack that starts bleeding
+    /// </summary>
+    /// <param name="Boss">who will attack with bleed</param>
+    /// <param name="p">Bleeding player</param>
+    /// <param name="bleedTurns">amount of turns with bleeding</param>
+    public void BleedPlayer(Character Boss, Player p, int bleedTurns)
+    {
+        Boss.AttackPlayer(Boss, p);
+        p.Bleed(bleedTurns);
+    }
     
+    protected internal void Bleed(int bleedTurns)
+    {
+        if (BleedTurns != 0)
+        {
+            BleedTurns = bleedTurns - 1;
+            int damage = Convert.ToInt32(Health * 0.1);
+            Health -= damage;
+            Console.WriteLine("{0} is bleeding! Next {1} turns its health will be drained!", Name, bleedTurns );
+            Thread.Sleep(1500);
+        }
+    }
 }
