@@ -17,15 +17,15 @@ public class Misc
             {
                 case "info":
                     Console.WriteLine(
-                        $"Battlefield: \n Allies:\n {GetCharsNamesWithLessInfo(Program.Game.Allies)}\n Enemies:\n {GetCharsNamesWithLessInfo(Program.Game.Enemies)}\n");
+                        $"Battlefield: \n Allies:\n {GetCharsNamesWithLessInfo(Program.Game!.Allies)}\n Enemies:\n {GetCharsNamesWithLessInfo(Program.Game.Enemies)}\n");
                     break;
                 case "moreinfo":
                     Console.WriteLine(
-                        $"Battlefield: \n Allies:\n {GetCharsNamesWithInfo(Program.Game.Allies)}\n Enemies:\n {GetCharsNamesWithInfo(Program.Game.Enemies)}\n");
+                        $"Battlefield: \n Allies:\n {GetCharsNamesWithInfo(Program.Game!.Allies)}\n Enemies:\n {GetCharsNamesWithInfo(Program.Game.Enemies)}\n");
                     break;
                 case "skillinfo":
                     Console.WriteLine(
-                        $"Select a skill:\n{Skill.GetNames(Game.Subject.Skills)}\n{Skill.GetInfo(Game.Subject.Skills)}");
+                        $"Select a skill:\n{Skill.GetNames(Game.Subject!.Skills)}\n{Skill.GetInfo(Game.Subject.Skills)}");
                     break;
             }
 

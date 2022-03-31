@@ -71,7 +71,7 @@ public class Skill
             if (UseOnSelf)
                 if (IsMoveSkill)
                 {
-                    Console.WriteLine($"What position to move: 1 - {Program.Game.Allies.Count}");
+                    Console.WriteLine($"What position to move: 1 - {Program.Game!.Allies.Count}");
                     Move = Misc.VerfiedInput(Program.Game.Allies.Count);
                     ref List<Character> allies = ref Program.Game.Allies;
                     foreach (int i in Enumerable.Range(1, Move < 0 ? Move * -1 : Move))
@@ -89,10 +89,8 @@ public class Skill
                 Console.WriteLine($"{subject.Name} used {Name} on {target.Name}");
                 Thread.Sleep(3000);
 
-                if (Misc.Roll(target.Dodge - subject.Acc))
-                {
+                if (Misc.Roll(target.Dodge - subject.Acc)) 
                     Console.WriteLine($"{target.Name} dodges");
-                }
 
                 else
                 {
@@ -101,12 +99,12 @@ public class Skill
                         Console.WriteLine("guard");
                         target = (Program.Game != null && Program.Game.Allies.Contains(target)
                                 ? Program.Game.Allies
-                                : Program.Game.Enemies)
+                                : Program.Game!.Enemies)
                             .Find(x =>
                                 x.Skills.Any(a => a.StatusList.Any(b => b.Type == "guard")));
                     }
 
-                    damageDealt = Convert.ToInt32(subject.Dmg * Damage * (1.0 - target.Armor));
+                    damageDealt = Convert.ToInt32(subject.Dmg * Damage * (1.0 - target!.Armor));
 
                     if (MarkDamage & target.StatusList.Any(x => x.Type == "mark"))
                         damageDealt *= 2;
@@ -143,7 +141,7 @@ public class Skill
                     {
                         Console.WriteLine($"{target.Name} is " + (Move > 0 ? "Pushed back " : "Pulled in ") + "by " +
                                           (Move > 0 ? $"{Move}" : $"{Move * -1}"));
-                        ref List<Character> allies = ref Program.Game.Allies;
+                        ref List<Character> allies = ref Program.Game!.Allies;
                         ref List<Character> enemies = ref Program.Game.Enemies;
                         List<Character> targetTeam = Program.Game.Allies.Contains(target) ? allies : enemies;
                         foreach (int i in Enumerable.Range(1, Move < 0 ? Move * -1 : Move))
@@ -164,7 +162,7 @@ public class Skill
 
     public List<Character> GetTargets()
     {
-        List<Character> allies = Program.Game.Allies;
+        List<Character> allies = Program.Game!.Allies;
         List<Character> enemies = Program.Game.Enemies;
         Thread.Sleep(3000);
         List<Character> targetTeam = UseOnAllies ? allies : enemies;
@@ -174,7 +172,7 @@ public class Skill
             return targetTeam;
 
         if (IsMoveSkill)
-            return new List<Character> {Game.Subject};
+            return new List<Character> {Game.Subject!};
 
         Console.WriteLine($"Select a target:\n{Misc.GetCharsNames(targetTeam)}");
         return new List<Character> {targetTeam[Misc.VerfiedInput(targetTeam.Count)]};

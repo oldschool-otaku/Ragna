@@ -7,8 +7,7 @@ namespace Ragna;
 public class Program
 {
     internal static Game? Game;
-
-    private static void Main(string[] args)
+    private static void Main()
     {
         Status.GenerateStatuses();
         

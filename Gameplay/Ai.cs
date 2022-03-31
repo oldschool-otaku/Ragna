@@ -71,7 +71,7 @@ public class Ai
                          .ThenByDescending(x => x.Skills.Any(a => a.UseOnAllies & (a.Damage != 0))).ToList())
             {
                 List<Skill> skillListT = skillList.Where(x => x.Targets.Contains(Allies.IndexOf(i))).ToList();
-                if (skillListT.Any())
+                if (!skillListT.Any()) continue;
                 {
                     skill = skillListT[0];
                     skill.Use(Subject,
