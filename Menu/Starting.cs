@@ -18,7 +18,7 @@ public static class Starting
         "dolboeb", "Master of uwu", "femboy hooters"
     };
 
-    private static bool ChechSum() => _defense + _intelligence + _strength == 15;
+    private static int ChechSum() => _defense + _intelligence + _strength == 15 ? 1 : 0;
 
     private static void CreatePlayer()
     {
@@ -35,7 +35,7 @@ public static class Starting
         Console.Clear();
 
         Console.WriteLine("Let's make a build");
-        while(ChechSum())
+        while(ChechSum() != 1)
             SetAttributes();
         Console.WriteLine("Now we're talking");
     }
@@ -58,13 +58,13 @@ public static class Starting
 
     private static string RandClass() => 
         Gameplay.ThrowTheDice() < 3 ? _class = "DD" : 
-        Gameplay.ThrowTheDice() < 5 ? _class = "Tank" : _class = "Heal";
+        Gameplay.ThrowTheDice() < 6 ? _class = "Tank" : _class = "Heal";
     
     private static void RandomStats()
     {
         _name = _randNames[RandomNumberGenerator.GetInt32(_randNames.Count)];
         _class = RandClass();
-        while (ChechSum())
+        while (ChechSum() is 0)
         {
             _strength = (RandomNumberGenerator.GetInt32(5));
             _intelligence = RandomNumberGenerator.GetInt32(5);

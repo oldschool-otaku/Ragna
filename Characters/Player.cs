@@ -100,11 +100,8 @@ public class Player
     private void DealDamage(Player p, Character obj)
     {
         DamageDealt = RandomNumberGenerator.GetInt32(p.Damage / 2, p.Damage);
-        if (Gameplay.ThrowTheDice() < p.Chance) 
-        { 
-            Console.WriteLine("Attack failed!");
-            return;
-        }
+        if (Gameplay.ThrowTheDice() < p.Chance) { Console.WriteLine("Attack failed!"); return; }
+        
         if (obj.Health - DamageDealt <= 0) { obj.Health = 0; return; }
 
         obj.Health -= DamageDealt;
@@ -112,7 +109,7 @@ public class Player
     }
 
     /// <summary>
-    /// DD's skill to do a 5x damage
+    ///     DD's skill to do a 5x damage
     /// </summary>
     /// <param name="p">Player</param>
     /// <param name="obj">Character</param>
@@ -126,7 +123,7 @@ public class Player
     }
 
     /// <summary>
-    /// Self healing.
+    ///     Self healing.
     /// </summary>
     private void GetSelfHealed()
     {
@@ -155,6 +152,19 @@ public class Player
     {
         Mana += 15;
         if (Mana > maxMana) Mana = maxMana;
+    }
+
+    /// <summary>
+    ///     Bleeding
+    /// </summary>
+    /// <param name="bleedTurns">Amount of turns with bleeding effect</param>
+    protected internal void Bleed(int bleedTurns)
+    {
+        Bleeding = true;
+        int damage = Convert.ToInt32(Health * 0.1);
+        Health -= damage;
+        Console.WriteLine("You're bleeding! Next {0} turns your health will be drained!", bleedTurns);
+        Thread.Sleep(1500);
     }
 
     public void TankMenu(Player player, Character Boss)

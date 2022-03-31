@@ -25,23 +25,23 @@ public class Modificators
         {
             case "Damage":
                 p.Damage += Buff;
-                break;
+                return; 
 
             case "Health":
                 p.Health += Buff;
-                break;
+                return;
 
             case "Strength":
                 p.Strength += Buff;
-                break;
+                return;
 
             case "Intelligence":
                 p.Intelligence += Buff;
-                break;
+                return;
 
             case "Defense":
                 p.Defense += Buff;
-                break;
+                return;
         }
         Console.WriteLine("You have used {0}, +{1} to {2}", Name, Buff, type);
     }
